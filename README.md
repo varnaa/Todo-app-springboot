@@ -2,15 +2,16 @@
 Simple Task manager app built using spring boot
 
 Front-end:
- -html
- -bootstrap 
+ html
+ bootstrap css
  
  Back-end:
-  -spring framework
+  spring framework
   
   database:
-  - mysql
-Note: execute the todo.sql file to get the database.
+   mysql
+  
+  Note: execute the todo.sql file to get the database.
   
   how to run:
   1.download the zip and open it in your sts or eclipse ide.
