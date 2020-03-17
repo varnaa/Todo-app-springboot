@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Todo App</title>
+
+	  	 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>   
+	     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+	      
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+ 	<meta charset="ISO-8859-1">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Pragma" content="no-cache"> 
+    <meta http-equiv="Cache-Control" content="no-cache"> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  		<a class="navbar-brand" href="#" th:href="@{/}">Todo</a>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    		<span class="navbar-toggler-icon"></span>
+  		</button>
+
+  		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    		<ul class="navbar-nav mr-auto">
+      			<li class="nav-item active">
+      			  <a class="nav-link" href="#" th:href="@{/newtask}">New Task<span class="sr-only">(current)</span></a>
+     			</li>
+    			<li class="nav-item">
+        			<a class="nav-link" href="#" th:href="@{/alltasks}">All Task</a>
+      			</li>
+      	</ul>
+     </div>
+</nav>
+
+<div th:if="${mode== 'MODE_HOME'}" class="container" id="homeDiv">
+				<div class="jumbotron text-center">
+					<h1>Welcome to Task manager</h1>
+				</div>
+			</div>
+	<div th:if ="${mode == 'MODE_ALL'}"class="container text-center" id="tasksDiv">
+				<h3>My Tasks</h3>
+				<hr>
+				<div class="table-responsive">
+					<table class="table table-light">
+						<thead>
+							<tr>
+								<th scope="col">Id</th>
+								<th  scope="col">Name</th>
+								<th  scope="col">Description</th>
+								<th  scope="col">Date Created</th>
+								<th  scope="col">Finished</th>
+								<th  scope="col">Update</th>
+								<th  scope="col">Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+								<tr th:each="task : ${tasks}">
+									<td th:text="${task.id}"></td>
+									<td th:text="${task.name}"></td>
+									<td th:text="${task.description}"></td>
+									<td th:text="${task.created_date}"></td>
+									<td th:text="${task.completed}"></td>
+									<td><a th:href="@{'/updatetask?id='+${task.id}}"><span class="fa fa-pencil"></span></a></td>
+									<td><a th:href="@{'/delete/'+ ${task.id}}"><span class="fa fa-trash"></span></a></td>
+								</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+<div th:if="${mode == 'MODE_NEW'} or ${mode == 'MODE_UPDATE'}" class="container text-center">
+<h3>Manage Task</h3>
+				<hr>				  
+	<form  method="POST" action=# th:action="@{/savetask}" th:object="${task}">
+	<input type="hidden" name="id" th:field="${task.id}"/>
+	  <div class="form-group row">
+	    <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control form-control-lg" id="inputEmail3" placeholder="Name" th:field="${task.name}">
+	    </div>
+	  </div>
+	  <div class="form-group row">
+	    <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control form-control-lg" id="inputPassword3" placeholder="Description" th:field="${task.description}">
+	    </div>
+	  </div>
+	  <fieldset class="form-group">
+	    <div class="row">
+	      <legend class="col-form-label col-sm-2 pt-2">Finished</legend>
+	      <div class="col-sm-5">
+	        <div class="form-check">
+	          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="yes" th:field="${task.completed}">
+	          <label class="form-check-label" for="gridRadios1">
+	            Yes
+	          </label>
+	        </div>
+	        <div class="form-check">
+	          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="no" checked th:field="${task.completed}">
+	          <label class="form-check-label" for="gridRadios2">
+	            No
+	          </label>
+	        </div>
+	         </div>
+    </div>
+  </fieldset>
+	        <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </div>
+</form>
+</div>	
+	
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</body>
+</html>
