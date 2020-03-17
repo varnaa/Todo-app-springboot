@@ -13,8 +13,8 @@ Front-end:
   
   Note: execute the todo.sql file to get the database.
   
-  how to run:
-  1.download the zip and open it in your sts or eclipse ide.
-  2.run maven clean install -X command 
-  3. execute in your localhost or as spring boot application.
+how to run:
+download the zip and open it in your sts or eclipse ide
+run maven clean install -X command 
+execute in your localhost or as spring boot application.
   
